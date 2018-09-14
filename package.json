@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "10.8.0"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "ts-node ./src/server.ts",
-    "start": "nodemon ./dist/server.js",
-    "prod": "npm run build && npm run start",
+    "listen": "nodemon ./dist/server.js",
+    "start": "npm run build && npm run listen",
     "test": "jest"
   },
   "author": "mat",
