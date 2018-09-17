@@ -9,8 +9,9 @@
     "build": "tsc",
     "dev": "ts-node ./src/server.ts",
     "listen": "nodemon ./dist/server.js",
-    "start": "npm run build && npm run listen",
-    "test": "jest"
+    "start": "node ./dist/server.js",
+    "test": "jest",
+    "postinstall": "npm run build"
   },
   "author": "mat",
   "license": "ISC",
