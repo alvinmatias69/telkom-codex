@@ -7,11 +7,9 @@ export default class Service {
     this.api = axios.create({
       baseURL: 'http://jira-telkomdds-devops-playground.apps.playcourt.id/rest/api/2/',
       timeout: 1000,
-      headers: {
-        auth: {
-          username: 'devchallenge',
-          password: 'dev12345'
-        }
+      auth: {
+        username: 'devchallenge',
+        password: 'dev12345'
       }
     })
   }
