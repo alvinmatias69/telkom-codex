@@ -9,8 +9,9 @@
     "build": "tsc",
     "dev": "ts-node ./src/server.ts",
     "listen": "nodemon ./dist/server.js",
-    "start": "npm run build && npm run listen",
-    "test": "jest"
+    "start": "node ./dist/server.js",
+    "test": "jest",
+    "postinstall": "npm run build"
   },
   "author": "mat",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "express": "^4.16.3",
     "mongoose": "^5.2.14",
     "nodemon": "^1.18.4",
+    "tsc": "^1.20150623.0",
     "typescript": "^3.0.3"
   },
   "devDependencies": {
