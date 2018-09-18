@@ -13,6 +13,6 @@ export default class Routes {
     this.api = new Service().api;
 
     this.app.use('/calendar', new Calendar().router);
-    this.app.use('/project/', new Project(this.api).router)
+    this.app.use('/project', new Project(this.api).router)
   }
 }
