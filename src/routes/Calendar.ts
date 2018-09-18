@@ -1,37 +1,34 @@
-import { Request, Response, Application } from 'express';
+import { Request, Response, Router } from 'express';
 import CalendarController from '../controllers/Calendar';
 
 export default class Calendar {
-  private app: Application;
+  public router: Router;
 
-  constructor(app: Application) {
-    this.app = app;
+  constructor() {
+    this.router = Router();
     this.list();
     this.detail();
     this.create();
   }
 
   private list() {
-    this.app.route('/calendar/list/:year/:month?/:date?')
-      .get((req: Request, res: Response) => {
-        const calendar: CalendarController = new CalendarController(req, res);
-        calendar.list();
-      });
+    this.router
+      .get('/list/:year/:month?/:date?', (req: Request, res: Response) =>
+        new CalendarController(req, res).list()
+      );
   }
 
   private detail() {
-    this.app.route('/calendar/:id')
-      .get((req: Request, res: Response) => {
-        const calendar: CalendarController = new CalendarController(req, res);
-        calendar.detail();
-      })
+    this.router
+      .get('/:id', (req: Request, res: Response) =>
+        new CalendarController(req, res).detail()
+      )
   }
 
   private create() {
-    this.app.route('/calendar')
-      .post((req: Request, res: Response) => {
-        const calendar: CalendarController = new CalendarController(req, res);
-        calendar.create();
-      })
+    this.router
+      .post('/', (req: Request, res: Response) =>
+        new CalendarController(req, res).create()
+      )
   }
 }

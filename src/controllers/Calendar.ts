@@ -35,7 +35,7 @@ export default class Calendar {
         _id
       })
       .select('_id due_date notes location')
-      .exec((err, res) => this.finishRequest(err, this.parseResponse(res)))
+      .exec((err, res) => this.finishRequest(err, this.parseResponse(res, true)))
   }
 
   public create() {
@@ -54,15 +54,16 @@ export default class Calendar {
     calendarObject.save((err: any) => this.finishRequest(err, { message: 'Success add notes' }))
   }
 
-  private parseResponse(res: Document[]) {
-    return res.map(item => {
+  private parseResponse(res: Document[], detail: boolean = false) {
+    const response = res.map(item => {
       const newRes = item.toObject();
       newRes.dueDate = new Date(newRes.due_date).toJSON()
       newRes.id = newRes._id;
       delete newRes.due_date;
       delete newRes._id;
       return newRes;
-    })
+    });
+    return detail && response.length > 0 ? response[0] : response;
   }
 
   private finishRequest(err: any, res: any) {
