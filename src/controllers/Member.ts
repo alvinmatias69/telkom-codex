@@ -32,15 +32,31 @@ export default class Member {
                 id: actor.id,
                 avatar: actor.avatarUrl,
                 stream: name,
-                burn: simulatedAnealing(0, 15),
-                remaining: simulatedAnealing(0, 15),
-                queue: simulatedAnealing(0, 15),
+                ...this.generatePerfornmance()
               })
             })
           }))
         }
         Promise.all(promises).then(() => this.finishRequest(null, this.list));
       })
+  }
+
+  public getDetail() {
+    const { periode } = this.req.query;
+    const level = simulatedAnealing(0, 5);
+    const intensity = [];
+    for (let index = 0; index < periode; index++) {
+      intensity.push(this.generatePerfornmance())
+    }
+    this.finishRequest(null, { level, intensity });
+  }
+
+  private generatePerfornmance() {
+    return {
+      burn: simulatedAnealing(0, 15),
+      remaining: simulatedAnealing(0, 15),
+      queue: simulatedAnealing(0, 15),
+    }
   }
 
   private finishRequest(err: any, res: any) {

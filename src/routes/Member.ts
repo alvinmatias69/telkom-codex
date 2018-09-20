@@ -9,7 +9,13 @@ export default class Member {
   constructor(api: AxiosInstance) {
     this.api = api;
     this.router = Router();
+    this.detail();
     this.list();
+  }
+
+  private detail() {
+    this.router
+      .get('/detail/:id', (req: Request, res: Response) => new MemberController(this.api, req, res).getDetail())
   }
 
   private list() {
