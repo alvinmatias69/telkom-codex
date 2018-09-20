@@ -11,6 +11,7 @@ export default class Project {
     this.router = Router();
     this.list();
     this.status();
+    this.performance();
   }
 
   private list() {
@@ -21,5 +22,10 @@ export default class Project {
   private status() {
     this.router
       .get('/status', (req: Request, res: Response) => new ProjectController(this.api, req, res).getStatus())
+  }
+
+  private performance() {
+    this.router
+      .get('/performance', (req: Request, res: Response) => new ProjectController(this.api, req, res).getPerformance())
   }
 }

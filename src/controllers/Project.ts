@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AxiosInstance, AxiosResponse } from "axios";
-import { simulatedAnealing } from '../lib/TensorFlow';
+import { simulatedAnealing, svm } from '../lib/TensorFlow';
 
 const statusOrder: any = {
   'To Do': 0,
@@ -45,6 +45,15 @@ export default class Project {
         })
     );
     Promise.all(promises).then(() => this.finishRequest(null, this.list));
+  }
+
+  public getPerformance() {
+    this.api.get('project')
+      .then((res: AxiosResponse) => this.finishRequest(null, res.data.map((item: any) => ({
+        name: item.name,
+        status: svm(),
+        performance: simulatedAnealing(0, 30),
+      }))));
   }
 
   private processProjectList(data: any[]) {
