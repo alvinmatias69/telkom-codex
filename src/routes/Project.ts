@@ -12,6 +12,7 @@ export default class Project {
     this.list();
     this.status();
     this.performance();
+    this.detail();
   }
 
   private list() {
@@ -27,5 +28,10 @@ export default class Project {
   private performance() {
     this.router
       .get('/performance', (req: Request, res: Response) => new ProjectController(this.api, req, res).getPerformance())
+  }
+
+  private detail() {
+    this.router
+      .get('/:key', (req: Request, res: Response) => new ProjectController(this.api, req, res).getDetail())
   }
 }

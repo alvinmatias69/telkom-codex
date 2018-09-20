@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AxiosInstance, AxiosResponse } from "axios";
-import { simulatedAnealing, svm } from '../lib/TensorFlow';
+import { simulatedAnealing, svm, naiveBayes } from '../lib/TensorFlow';
 
 const statusOrder: any = {
   'To Do': 0,
@@ -54,6 +54,23 @@ export default class Project {
         status: svm(),
         performance: simulatedAnealing(0, 30),
       }))));
+  }
+
+  public getDetail() {
+    const { key } = this.req.params;
+    this.api.get(`project/${key}?expand=lead`)
+      .then((res: AxiosResponse) => {
+        const { data } = res;
+        const start = naiveBayes(new Date(2018, 0, 1), new Date());
+        this.finishRequest(null, {
+          name: data.name,
+          description: data.description,
+          stakeholder: data.lead.name,
+          sprint: simulatedAnealing(1, 50),
+          start,
+          end: naiveBayes(start, new Date()),
+        });
+      });
   }
 
   private processProjectList(data: any[]) {
