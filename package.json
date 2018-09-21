@@ -16,6 +16,7 @@
   "author": "mat",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.4",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
